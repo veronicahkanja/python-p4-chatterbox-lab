@@ -15,6 +15,15 @@ migrate = Migrate(app, db)
 with app.app_context():
     db.create_all()
 
+    if Message.query.count() == 0:
+        sample_message = Message(
+            body="Hello ",
+            username="Liza"
+        )
+
+        db.session.add(sample_message)
+        db.session.commit()
+
 
 @app.route('/messages', methods=['GET'])
 def messages():
