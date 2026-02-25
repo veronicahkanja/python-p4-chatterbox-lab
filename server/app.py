@@ -69,16 +69,15 @@ def update_message(id):
 
 @app.route('/messages/<int:id>', methods=['DELETE'])
 def delete_message(id):
-    """DELETE /messages/<int:id>: deletes the message from the database"""
     message = Message.query.filter_by(id=id).first()
-    
+
     if not message:
         return jsonify({"error": "Message not found"}), 404
-    
+
     db.session.delete(message)
     db.session.commit()
-    
-   return '', 204
+
+    return '', 204
 
 if __name__ == '__main__':
     app.run(port=5555)
